@@ -1,0 +1,398 @@
+<div class="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+  <!-- Header Navigation -->
+  <nav
+    class="bg-white/80 backdrop-blur-md border-b border-orange-100 sticky top-0 z-50 transition-all duration-300"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <div class="flex items-center space-x-2 group cursor-pointer">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300"
+          >
+            <span class="text-white font-bold text-lg">🍽️</span>
+          </div>
+          <h1
+            class="text-2xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300"
+          >
+            NomNom
+          </h1>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a
+            href="#"
+            class="text-orange-600 font-medium hover:text-orange-700 transition-colors duration-200 relative group"
+          >
+            Discover
+            <span
+              class="absolute bottom-0 left-0 w-full h-0.5 bg-orange-600 transform scale-x-100 transition-transform duration-200"
+            ></span>
+          </a>
+          <a
+            href="#"
+            class="text-gray-600 hover:text-orange-600 transition-colors duration-200 relative group"
+          >
+            Favorites
+            <span
+              class="absolute bottom-0 left-0 w-full h-0.5 bg-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
+            ></span>
+          </a>
+          <a
+            href="#"
+            class="text-gray-600 hover:text-orange-600 transition-colors duration-200 relative group"
+          >
+            My Kitchen
+            <span
+              class="absolute bottom-0 left-0 w-full h-0.5 bg-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
+            ></span>
+          </a>
+        </div>
+
+        <!-- Cart -->
+        <div class="flex items-center">
+          <button
+            class="flex items-center space-x-2 text-gray-600 hover:text-orange-600 transition-colors duration-200 group"
+          >
+            <div class="relative">
+              <svg
+                class="w-6 h-6 group-hover:scale-110 transition-transform duration-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.68 5.34a2 2 0 001.92 2.66h9.52M7 13v6a2 2 0 002 2h7.74M16 17a2 2 0 104 0 2 2 0 00-4 0zM9 17a2 2 0 104 0 2 2 0 00-4 0z"
+                ></path>
+              </svg>
+              <span
+                class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium animate-pulse"
+                >{{ cartCount }}</span
+              >
+            </div>
+            <span class="hidden sm:inline font-medium"
+              >Cart ({{ cartCount }})</span
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center py-16 sm:py-24">
+      <!-- Main Heading -->
+      <div class="mb-12 animate-fade-in-up">
+        <h1
+          class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+        >
+          What's in your
+          <span class="animate-gradient"> kitchen today? </span>
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Transform everyday ingredients into extraordinary meals. Just type
+          what you have and discover amazing recipes from around the world.
+        </p>
+      </div>
+
+      <!-- Search Section -->
+      <div
+        class="max-w-2xl mx-auto mb-12 animate-fade-in-up animation-delay-200"
+      >
+        <div class="relative group">
+          <div
+            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+          >
+            <svg
+              class="w-5 h-5 text-gray-400 group-focus-within:text-orange-500 transition-colors duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+          </div>
+          <input
+            type="text"
+            [(ngModel)]="searchQuery"
+            placeholder="Enter ingredients (e.g., chicken, tomato, pasta...)"
+            class="w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-orange-500 focus:ring-4 focus:ring-orange-100 outline-none transition-all duration-300 shadow-sm hover:shadow-md"
+            (keyup.enter)="onSearch()"
+          />
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 mt-6 justify-center">
+          <button
+            (click)="onSearch()"
+            class="group bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-3 rounded-2xl font-semibold text-lg hover:from-orange-600 hover:to-red-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2"
+          >
+            <span>Find Recipes</span>
+            <svg
+              class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              ></path>
+            </svg>
+          </button>
+          <button
+            (click)="onSurpriseMe()"
+            class="group bg-white text-gray-700 px-8 py-3 rounded-2xl font-semibold text-lg border-2 border-gray-200 hover:border-orange-500 hover:text-orange-600 transform hover:scale-105 transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center space-x-2"
+          >
+            <svg
+              class="w-5 h-5 group-hover:rotate-180 transition-transform duration-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 3l14 9-14 9V3z"
+              ></path>
+            </svg>
+            <span>Surprise Me!</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Ingredients -->
+      <div class="mb-8 animate-fade-in-up animation-delay-300">
+        <p class="text-gray-600 mb-4 font-medium">Quick ingredients:</p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <button
+            *ngFor="let ingredient of quickIngredients"
+            (click)="selectQuickIngredient(ingredient)"
+            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-orange-100 hover:text-orange-700 transform hover:scale-105 transition-all duration-200 font-medium"
+          >
+            {{ ingredient }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Recent Searches -->
+      <div class="mb-16 animate-fade-in-up animation-delay-400">
+        <p class="text-gray-600 mb-4 font-medium">Recent searches:</p>
+        <div class="flex flex-wrap gap-2 justify-center">
+          <button
+            *ngFor="let search of recentSearches"
+            (click)="selectRecentSearch(search)"
+            class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm hover:bg-orange-200 transform hover:scale-105 transition-all duration-200 font-medium"
+          >
+            {{ search }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Crafted for you Section -->
+    <section class="py-16 animate-fade-in-up animation-delay-500">
+      <div class="flex justify-between items-center mb-12">
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900 mb-2">Crafted for you</h2>
+          <p class="text-gray-600">Handpicked recipes that inspire</p>
+        </div>
+        <button
+          class="text-orange-600 font-semibold hover:text-orange-700 transition-colors duration-200 flex items-center space-x-2 group"
+        >
+          <span>View All</span>
+          <svg
+            class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Recipe Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          *ngFor="let recipe of featuredRecipes; let i = index"
+          class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden group"
+          [style.animation-delay]="i * 100 + 'ms'"
+        >
+          <!-- Recipe Image -->
+          <div
+            class="relative h-48 bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden"
+          >
+            <div
+              class="absolute inset-0 flex items-center justify-center text-6xl opacity-20"
+            >
+              🍳
+            </div>
+            <div class="absolute top-4 left-4">
+              <span
+                class="px-3 py-1 rounded-full text-sm font-medium"
+                [ngClass]="{
+                  'bg-green-100 text-green-700': recipe.difficulty === 'Easy',
+                  'bg-blue-100 text-blue-700': recipe.difficulty === 'Medium'
+                }"
+              >
+                {{ recipe.difficulty }}
+              </span>
+            </div>
+            <button
+              class="absolute top-4 right-4 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors duration-200"
+            >
+              <svg
+                class="w-5 h-5 text-gray-600 hover:text-red-500 transition-colors duration-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Recipe Content -->
+          <div class="p-6">
+            <h3
+              class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors duration-200"
+            >
+              {{ recipe.title }}
+            </h3>
+
+            <!-- Recipe Meta -->
+            <div class="flex items-center space-x-4 text-sm text-gray-600 mb-4">
+              <div class="flex items-center space-x-1">
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <span>{{ recipe.time }} min</span>
+              </div>
+              <div class="flex items-center space-x-1">
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  ></path>
+                </svg>
+                <span>{{ recipe.servings }}</span>
+              </div>
+              <div class="flex items-center space-x-1">
+                <svg
+                  class="w-4 h-4 text-yellow-400 fill-current"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                  />
+                </svg>
+                <span class="font-medium">{{ recipe.rating }}</span>
+                <span>({{ recipe.reviews }})</span>
+              </div>
+            </div>
+
+            <!-- Ingredients -->
+            <div class="flex flex-wrap gap-2">
+              <span
+                *ngFor="let ingredient of recipe.ingredients"
+                class="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-sm"
+              >
+                {{ ingredient }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-20 text-center animate-fade-in-up animation-delay-600">
+      <div class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">
+          Trusted by home cooks everywhere
+        </h2>
+        <p class="text-xl text-gray-600">
+          Join millions who've discovered their next favorite meal
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-12">
+        <div
+          *ngFor="let stat of stats; let i = index"
+          class="transform hover:scale-105 transition-transform duration-300"
+          [style.animation-delay]="i * 200 + 'ms'"
+        >
+          <div
+            class="text-5xl font-bold text-gray-900 mb-2 bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent"
+          >
+            {{ stat.value }}
+          </div>
+          <div class="text-gray-600 font-medium">{{ stat.label }}</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 py-8 mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <div
+            class="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center"
+          >
+            <span class="text-white font-bold">🍽️</span>
+          </div>
+          <span class="text-xl font-bold text-gray-900">NomNom</span>
+        </div>
+        <p class="text-gray-600 text-center">
+          Powered by TheMealDB API • Made with
+          <span class="text-red-500">❤️</span> for food lovers
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <router-outlet></router-outlet>
+</div>
