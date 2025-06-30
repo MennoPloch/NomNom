@@ -35,42 +35,20 @@ public class FirebaseConfig {
     @PostConstruct
     public void initialize() {
         try {
-            if (FirebaseApp.getApps().isEmpty() && !projectId.isEmpty()) {
-                // Create a simple service account JSON for Firebase Admin SDK
-                // Note: For production, you should use a proper service account key file
-                String serviceAccountJson = String.format(
-                    "{\n" +
-                    "  \"type\": \"service_account\",\n" +
-                    "  \"project_id\": \"%s\",\n" +
-                    "  \"private_key_id\": \"dummy\",\n" +
-                    "  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nDUMMY_KEY\\n-----END PRIVATE KEY-----\\n\",\n" +
-                    "  \"client_email\": \"firebase-adminsdk@%s.iam.gserviceaccount.com\",\n" +
-                    "  \"client_id\": \"dummy\",\n" +
-                    "  \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\n" +
-                    "  \"token_uri\": \"https://oauth2.googleapis.com/token\"\n" +
-                    "}",
-                    projectId, projectId
-                );
-
-                GoogleCredentials credentials = GoogleCredentials.fromStream(
-                    new ByteArrayInputStream(serviceAccountJson.getBytes(StandardCharsets.UTF_8))
-                );
-
-                FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(credentials)
-                    .setProjectId(projectId)
-                    .setStorageBucket(storageBucket)
-                    .build();
-
-                FirebaseApp.initializeApp(options);
-                firebaseInitialized = true;
-                System.setProperty("firebase.configured", "true");
-                System.out.println("Firebase initialized successfully for project: " + projectId);
+            // Only initialize Firebase if we have valid configuration
+            if (FirebaseApp.getApps().isEmpty() && !projectId.isEmpty() && 
+                !projectId.equals("nomnom-f3371")) { // Skip test project ID
+                
+                // For proper Firebase setup, you need a real service account JSON file
+                // This is just a placeholder - in real usage, load from environment or file
+                System.out.println("Firebase project ID provided but no proper credentials configured");
+                System.out.println("To use Firebase, provide proper service account credentials");
+                System.setProperty("firebase.configured", "false");
             } else {
                 System.setProperty("firebase.configured", "false");
                 System.out.println("Firebase configuration not found - running without Firebase/Firestore");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error initializing Firebase: " + e.getMessage());
             System.setProperty("firebase.configured", "false");
             // For development purposes, we'll continue without Firebase

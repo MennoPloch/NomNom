@@ -1,0 +1,13 @@
+export const environment = {
+  production: false,
+  apiUrl: "http://localhost:8080/api",
+  firebase: {
+    apiKey: "your-firebase-api-key-here",
+    authDomain: "your-project.firebaseapp.com",
+    databaseURL: "https://your-project-default-rtdb.firebaseio.com",
+    projectId: "your-project-id",
+    storageBucket: "your-project.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:your-app-id"
+  }
+};
