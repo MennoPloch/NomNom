@@ -15,20 +15,15 @@ public class BackendApplication {
 
         // Set environment variables from .env file
         if (dotenv != null) {
-            // MongoDB Configuration - Use direct connection string
-            String mongoConnectionString = dotenv.get("MONGODB_CONNECTION_STRING", "");
-            if (!mongoConnectionString.isEmpty()) {
-                System.setProperty("spring.data.mongodb.uri", mongoConnectionString);
-            }
 
             // Firebase Configuration
             System.setProperty("FIREBASE_PROJECT_ID", dotenv.get("FIREBASE_PROJECT_ID", ""));
-            System.setProperty("FIREBASE_PRIVATE_KEY_ID", dotenv.get("FIREBASE_PRIVATE_KEY_ID", ""));
-            System.setProperty("FIREBASE_PRIVATE_KEY", dotenv.get("FIREBASE_PRIVATE_KEY", ""));
-            System.setProperty("FIREBASE_CLIENT_EMAIL", dotenv.get("FIREBASE_CLIENT_EMAIL", ""));
-            System.setProperty("FIREBASE_CLIENT_ID", dotenv.get("FIREBASE_CLIENT_ID", ""));
-            System.setProperty("FIREBASE_AUTH_URI", dotenv.get("FIREBASE_AUTH_URI", ""));
-            System.setProperty("FIREBASE_TOKEN_URI", dotenv.get("FIREBASE_TOKEN_URI", ""));
+            System.setProperty("FIREBASE_API_KEY", dotenv.get("FIREBASE_API_KEY", ""));
+            System.setProperty("FIREBASE_AUTH_DOMAIN", dotenv.get("FIREBASE_AUTH_DOMAIN", ""));
+            System.setProperty("FIREBASE_STORAGE_BUCKET", dotenv.get("FIREBASE_STORAGE_BUCKET", ""));
+            System.setProperty("FIREBASE_MESSAGING_SENDER_ID", dotenv.get("FIREBASE_MESSAGING_SENDER_ID", ""));
+            System.setProperty("FIREBASE_APP_ID", dotenv.get("FIREBASE_APP_ID", ""));
+            System.setProperty("FIREBASE_MEASUREMENT_ID", dotenv.get("FIREBASE_MEASUREMENT_ID", ""));
 
             // Application URLs
             String appBaseUrl = dotenv.get("APP_BASE_URL", "");
